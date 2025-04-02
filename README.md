@@ -434,4 +434,19 @@ Then I will specified the full url + port on the WordPress settings :
     * WordPress Site Web Address
       * http://watermelon.cybercat.com:2040
   
-  
+
+## **HTTPS**
+
+### **Cerbot & Let's Encript certificate**
+
+For the final part I will make a SSL certificate for my website using Cerbot :
+
+```Cerbot installation
+sudo apt -y install python3-certbot-apache
+```
+
+**&**
+
+```Activation of Cerbot
+sudo certbot --apache -d watermelon.cybercat.com
+```
