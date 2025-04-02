@@ -332,3 +332,36 @@ phpinfo();
 I can verified the website with this :
 
 **http://websiteIP/phpinfo.php**
+
+## **WordPress**
+
+### **Installing WordPress**
+
+Now I will install WordPress :
+
+```Installing WordPress
+sudo curl -O https://wordpress.org/latest.tar.gz && \
+sudo tar -xzf latest.tar.gz -C /var/www/html/ && \
+rm latest.tar.gz
+```
+```
+sudo chown -R www-data:www-data /var/www/html/wordpress && \
+sudo chmod -R 755 /var/www/html/wordpress
+```
+
+### **Setting up WordPress**
+
+I will connect to the local MariaDB Database I have previously created also using the previously defined credentials :
+
+* **Username**
+  * catwithamelon
+* **Password**
+  * mypassword
+
+Then I will create a User for WordPress :
+
+* **Username**
+  * cybercat
+* **Password**
+  * mypassword
+
