@@ -1,4 +1,4 @@
-# **LAMPS Creation**
+# **LAMPS Creation by Hand**
 
 ## Summary
 
