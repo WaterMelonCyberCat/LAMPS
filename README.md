@@ -18,6 +18,7 @@
 
 ### **Installing PHP**
 - **Checking PHP version**
+- **Checking script modules PHP**
 
 ### **WordPress**
 - **Installing WordPress**
@@ -98,15 +99,15 @@ sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
    (*change the (*****)with the actual file*)
 
 
-  - Decomment PermitRootLogin Yes & change it to No
-  - Change the LoginGraceTime 120 to 30
-  - Add a MaxAuthTries set with only 3 connexions tries
-  - Add a MaxSessions parameter with only 3 sessions autorized
-  - Add the AlllowUsers with all the users you need to have
-  - Declared the autorized algorithms with HostKeyAlgorithms
-  - Forbid the interactive keyboard with PasswordAuthentication set on No
-  - Pass the StrictModes parameter to Yes
-  - Declared explicitly the emplacement of the SSH keys in AuthorizedKeyFile
+  - **Decomment PermitRootLogin Yes & change it to No**
+  - **Change the LoginGraceTime 120 to 30**
+  - **Add a MaxAuthTries set with only 3 connexions tries**
+  - **Add a MaxSessions parameter with only 3 sessions autorized**
+  - **Add the AlllowUsers with all the users you need to have**
+  - **Declared the autorized algorithms with HostKeyAlgorithms**
+  - **Forbid the interactive keyboard with PasswordAuthentication set on No**
+  - **Pass the StrictModes parameter to Yes**
+  - **Declared explicitly the emplacement of the SSH keys in AuthorizedKeyFile**
   
 ```Secure SSH
   LoginGraceTime 30
@@ -211,10 +212,10 @@ sudo cp /etc/apache2/conf-enable/security.conf /etc/apache2/conf-enable/security
 
 In the security.conf file let's do some changes :
 
-  - Decomment SeverTokens and set them to Prod
-  - Add the ServerSignature and set it to Off
-  - Add TraceEnable and set it also on Off
-  - Add some mod Headers
+  - **Decomment SeverTokens and set them to Prod**
+  - **Add the ServerSignature and set it to Off**
+  - **Add TraceEnable and set it also on Off**
+  - **Add some mod Headers**
 
 ```Secure Apache2
 ServerTokens Prod
@@ -232,6 +233,102 @@ TraceEnable Off
 </Ifmodule>
 ```
 
-## **Installing MariaDB**
+## **Installation & Discovery of MariaDB**
+
+### **Installing MariaDB**
+
+```Installing MariaDB
+sudo apt -y install mariadb-server
+```
+
+### **Securing MariaDB**
+
+```Secure MySQL
+sudo mysql_secure_installation
+```
+When the secure installation of mySQL start it will ask some question answer it like this :
+
+```Questions of mySQL installation
+Switch to unix_socket authentication [Y/n] Y
+Change the root password? [Y/n] n
+Remove anonymous users? [Y/n] y
+Disallow root login remotely? [Y/n] y
+Remove test database and access to it? [Y/n] y
+Reload privilege tables now? [Y/n] y
+```
 
 
+### **Creating user for WordPress**
+
+I will start by connecting myself to mySQL :
+
+```Connection to mySQL
+sudo mysql
+```
+
+Then I will do the following actions :
+
+ - **Create a Database**
+ - **Create a user with a password**
+ - **Grant all privileges of the database that I created to the user**
+ - **Then I flush the privileges**
+  
+```MySQL preparation
+CREATE DATABASE wordpress;
+CREATE USER 'catwithamelon'@'localhost' IDENTIFIED BY 'mypassword';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'catwithamelon'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+To be sure I can do this commands to remind me what I have done :
+
+```Reminder
+SHOW Databases;
+SELECT User, Host, Password FROM mysql.user;
+EXIT;
+```
+
+## **Installing PHP**
+
+I will now install PHP and all its dependences :
+
+```Installing PHP & the dependences
+sudo apt install -y \
+  php \
+  php-mysql \
+  php-curl \
+  php-gd \
+  php-mbstring \
+  php-xml \
+  php-xmlrpc \
+  php-zip \
+  php-intl \
+  php-bcmath
+  ```
+
+  ### **Checking PHP version**
+
+  How can I check my PHP version :
+
+  ```Checking PHP version
+  php -v
+  ```
+
+### **Checking script modules PHP**
+
+Now to verified that the PHP modules are active I will create a file name "phpinfo.php" at the root of my website :
+
+```Creating phpinfo.php
+sudo nano /var/www/html/phpinfo.php
+```
+Then in the file I put the following code :
+
+```phpinfo.php code
+<?php
+phpinfo();
+?>
+```
+I can verified the website with this :
+
+**http://websiteIP/phpinfo.php**
