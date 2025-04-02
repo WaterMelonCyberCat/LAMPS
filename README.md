@@ -89,7 +89,11 @@ nano /etc/ssh/sshd_config
 ```
 
 #### When I am in the sshd_config file I will do this list of steps :
-   ! Before any modification open another ssh window before !
+   ! Before any modification open another ssh window before and create a bakup file !
+```Backup file for sshd_config
+sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+```
+
 
    (*change the (*****)with the actual file*)
 
@@ -195,3 +199,39 @@ sudo apt-get install -y apache2-utils
 
 </VirtualHost>
 ```
+### **Securing Apache2**
+
+#### **Now I will secure apache2**
+
+But before anything let's create a backup file :
+
+```Create a backup file 
+sudo cp /etc/apache2/conf-enable/security.conf /etc/apache2/conf-enable/security.conf.bak
+```
+
+In the security.conf file let's do some changes :
+
+  - Decomment SeverTokens and set them to Prod
+  - Add the ServerSignature and set it to Off
+  - Add TraceEnable and set it also on Off
+  - Add some mod Headers
+
+```Secure Apache2
+ServerTokens Prod
+ServerSignature Off
+TraceEnable Off
+<IfModule mod_headers.c>
+
+        Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com/ https://www.google.fr/        
+        Header always set X-Frame-Options "DENY"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set Referrer-Policy "no-referrer"
+        Header always set Permisssions-Policy "geolocalisation=(), microphone=(), camera=()"
+
+</Ifmodule>
+```
+
+## **Installing MariaDB**
+
+
