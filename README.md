@@ -24,6 +24,14 @@
 - **Installing WordPress**
 - **Setting up WordPress**
 
+### **WAN**
+- **How to get my public IP**
+- **Set a A record with my public IP**
+- **Modification of the vHost & port.conf**
+- **Add the domaine name & port on WordPress**
+
+### **HTTPS**
+- **Cerbot & Let's Encript certificate**
 ---
 
 ## **Before everything**
@@ -365,3 +373,65 @@ Then I will create a User for WordPress :
 * **Password**
   * mypassword
 
+
+## **WAN**
+
+### **How to get my public IP**
+
+I want to connect my website to the world to see so I need to get my public IP address to get my website on the WAN :
+
+```Website to get your public IP address
+https://mon-ip.com
+```
+
+### **Set a A record with my public IP**
+
+Now that I have my public IP address I will connect to my domain name supplier and create a A record :
+
+```Creation of a A record
+Subdomain watermelon
+TTL default
+Target my public IP address
+```
+
+### **Modification of the vHost & port.conf**
+
+After that I create my A record I will modified some parameters in my vHost and my port.conf files :
+
+```vHost part
+<VirtualHost *:2040>
+    ServerName watermelon.cybercat.com
+    DocumentRoot /var/www/html/wordpress
+
+    <Directory /var/www/html/wordpress>
+        Options FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Logs
+    ErrorLog ${APACHE_LOG_DIR}/wordpress-error.log
+    CustomLog ${APACHE_LOG_DIR}/wordpress-access.log combined
+
+</VirtualHost>
+```
+In the port.conf file I specified the new port that I have open on my FW.
+
+```Port.conf part
+Listen 2040
+```
+
+### **Add the domaine name & port on WordPress**
+
+Then I will specified the full url + port on the WordPress settings :
+
+* Settings
+  * General
+    * WordPress Web Address
+      * http://watermelon.cybercat.com:2040
+* Settings
+  * General
+    * WordPress Site Web Address
+      * http://watermelon.cybercat.com:2040
+  
+  
