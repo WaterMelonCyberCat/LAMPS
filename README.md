@@ -4,7 +4,7 @@
 
 ### **Before everything**
 - **SSH & IPFIXE**
-- **Installing basic tools**
+- **Basic tools**
   
 ### **Installation & Discorvery of Apache2**
 - **Installing Apache2**
@@ -82,7 +82,7 @@ nano /etc/ssh/sshd_config
   - Pass the StrictModes parameter to Yes
   - Declared explicitly the emplacement of the SSH keys in AuthorizedKeyFile
   
-  ```Secure SSH
+```Secure SSH
   LoginGraceTime 30
   AllowUsers watermeloncybercat
   PasswordAuthentication no
@@ -93,5 +93,29 @@ nano /etc/ssh/sshd_config
   HostKeyAlgorithms ssh-rsa,ssh-ed25519
   PubkeyAuthentication yes
   AuthorizedKeyFile     ***************
-  ```
-  
+```
+
+#### Now that my IP is fixed and my ssh is secured let's get some basic tool.
+
+### **Basic tools**
+
+There is some tools that are useful for a LAMPS :
+
+```Basic tools
+sudo apt -y install \
+  ca-certificates \
+  ccze \
+  curl \
+  htop \
+  iptables-persistent \
+  man \
+  neofetch \
+  net-tools \
+  tcpdump \
+  unzip \
+  vim \
+  wget \
+  zip
+```
+
+#### **Alright everything is set let's get to the main course !**
