@@ -49,8 +49,8 @@ Then when I am in this file I put those parameters in it :
 
 ```Parameters for a fixed IP
 iface ens192 inet static
-address 192.168.10.100
-gateway 192.168.10.254
+address my IP address
+gateway my Gateway
 ```
 When it's done restart the networking :
 
